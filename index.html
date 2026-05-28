@@ -273,6 +273,61 @@ footer{max-width:960px;margin:0 auto;padding:28px max(32px,env(safe-area-inset-l
   .div-tbl-wrap{max-height:calc(100vh - 110px);}
   table.dtbl thead th,table.dtbl tbody td{padding:5px 9px;}
 }
+
+  /* ══ USE CASES ══ */
+  .uc-item{border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden;transition:box-shadow .2s;}
+  .uc-item:hover{box-shadow:0 4px 16px rgba(0,0,0,.06);}
+  .uc-header{display:flex;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;user-select:none;background:var(--card);}
+  .uc-header:hover{background:rgba(0,0,0,.01);}
+  .uc-icon{font-size:26px;flex-shrink:0;width:42px;text-align:center;}
+  .uc-title-wrap{flex:1;}
+  .uc-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:3px;}
+  .uc-tagline{font-size:13px;color:var(--light);}
+  .uc-chevron{font-size:18px;color:var(--light);transition:transform .3s;flex-shrink:0;}
+  .uc-item.open .uc-chevron{transform:rotate(180deg);}
+  .uc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
+  .uc-body-inner{padding:0 24px 24px;border-top:1px solid var(--border);}
+  .uc-body-inner p{font-size:14px;color:var(--mid);line-height:1.75;margin-bottom:14px;}
+  .uc-body-inner p:last-child{margin-bottom:0;}
+  .uc-highlights{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+  .uc-hl{background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px 16px;}
+  .uc-hl-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:4px;}
+  .uc-hl-val{font-size:14px;font-weight:500;color:var(--navy);}
+  @media(max-width:640px){
+    .uc-highlights{grid-template-columns:1fr;}
+    .uc-header{padding:16px 18px;gap:12px;}
+    .uc-title{font-size:17px;}
+    .uc-body-inner{padding:0 18px 20px;}
+  }
+
+
+  /* ══ COLLAPSIBLE SECTIONS ══ */
+  .sec-collapse-wrap { margin-bottom: 0; }
+  .sec-toggle-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; user-select: none;
+    padding: 22px max(32px,env(safe-area-inset-left));
+    border-top: 1px solid var(--border);
+    background: transparent; transition: background .15s; gap: 16px;
+  }
+  .sec-toggle-bar:hover { background: rgba(0,0,0,.02); }
+  .sec-toggle-left { display: flex; align-items: center; gap: 16px; }
+  .sec-toggle-num { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; color: var(--gold); opacity: .8; flex-shrink: 0; }
+  .sec-toggle-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 3.5vw, 32px); font-weight: 400; line-height: 1.1; }
+  .sec-toggle-subtitle { font-size: 13px; color: var(--light); margin-top: 3px; }
+  .sec-chevron { font-size: 22px; color: var(--light); transition: transform .35s cubic-bezier(.4,0,.2,1); flex-shrink: 0; }
+  .sec-collapse-wrap.open .sec-chevron { transform: rotate(180deg); }
+  .sec-body { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.4,0,.2,1); }
+  .sec-collapse-wrap.open .sec-body { max-height: 9999px; }
+  .sec-body-inner { padding: 32px max(32px,env(safe-area-inset-left)) 56px; }
+  .sec-collapse-wrap:last-child .sec-toggle-bar { border-bottom: 1px solid var(--border); }
+  .sec-collapse-wrap.open:last-child .sec-toggle-bar { border-bottom: none; }
+  @media(max-width:640px){
+    .sec-toggle-bar { padding: 18px max(16px,env(safe-area-inset-left)); }
+    .sec-toggle-title { font-size: clamp(20px,5vw,26px); }
+    .sec-body-inner { padding: 20px max(16px,env(safe-area-inset-left)) 44px; }
+  }
+
 </style>
 </head>
 <body>
@@ -280,11 +335,12 @@ footer{max-width:960px;margin:0 auto;padding:28px max(32px,env(safe-area-inset-l
 <nav id="mainNav">
   <div class="nav-logo">AIA Platinum Wealth<span>Venture 2.0</span></div>
   <div class="nav-links">
-    <a href="#welcome">Welcome Bonus</a>
-    <a href="#dividends">Dividends</a>
-    <a href="#journey">Journey</a>
-    <a href="#fees">Fees</a>
-    <a href="#fit">Who Is It For</a>
+    <a href="#secWrap1">Use Cases</a>
+    <a href="#secWrap3">Bonus</a>
+    <a href="#secWrap5">Dividends</a>
+    <a href="#secWrap4">Journey</a>
+    <a href="#secWrap6">Who It's For</a>
+    <a href="#secWrap7">Fees</a>
   </div>
 </nav>
 
@@ -326,27 +382,62 @@ footer{max-width:960px;margin:0 auto;padding:28px max(32px,env(safe-area-inset-l
 
 <hr class="divider">
 
-<!-- §01 FEATURES -->
-<div class="section">
-  <div class="sec-ey"><span class="sec-num">§ 01</span> Key Features</div>
-  <h2>Engineered for affluent wealth builders.</h2>
-  <p class="sec-lead">Five years of premiums. A decade of bonuses. Designed for those with S$18,000+ per year who want a defined commitment and long runway for growth.</p>
-  <div class="feat-grid">
+
+<div class="sec-collapse-wrap open" id="secWrap1">
+  <div class="sec-toggle-bar" onclick="toggleSec(1)">
+    <div class="sec-toggle-left">
+      <div class="sec-toggle-num">§ 01</div>
+      <div>
+        <div class="sec-toggle-title">Use Cases & USPs</div>
+        <div class="sec-toggle-subtitle">Six ways this plan can work for your goals</div>
+      </div>
+    </div>
+    <div class="sec-chevron">▾</div>
+  </div>
+  <div class="sec-body" id="secBody1">
+    <div class="sec-body-inner">
+<div id="ucContainer"></div>
+    </div>
+  </div>
+</div>
+<div class="sec-collapse-wrap" id="secWrap2">
+  <div class="sec-toggle-bar" onclick="toggleSec(2)">
+    <div class="sec-toggle-left">
+      <div class="sec-toggle-num">§ 02</div>
+      <div>
+        <div class="sec-toggle-title">Key Features</div>
+        <div class="sec-toggle-subtitle">What the plan includes — protection, flexibility, legacy</div>
+      </div>
+    </div>
+    <div class="sec-chevron">▾</div>
+  </div>
+  <div class="sec-body" id="secBody2">
+    <div class="sec-body-inner">
+<div class="feat-grid">
     <div class="feat-card"><div class="feat-icon">🛡️</div><div class="feat-lbl">Protection</div><div class="feat-title">Death Benefit</div><div class="feat-desc">Higher of: (a) total regular premium + top-ups – withdrawals, or (b) policy value — less applicable charges. Accidental death within first 2 policy years: additional 100% of total regular premium paid.</div></div>
-    <div class="feat-card"><div class="feat-icon">⭐</div><div class="feat-lbl">Loyalty</div><div class="feat-title">Performance Bonus</div><div class="feat-desc">0.40% p.a. of Regular Premium Policy Value every year from the start of Year 8 — higher rate than AWV's 0.30%, rewarding the larger premium commitment.</div></div>
+    <div class="feat-card"><div class="feat-icon">⭐</div><div class="feat-lbl">Loyalty</div><div class="feat-title">Performance Bonus</div><div class="feat-desc">0.40% p.a. of Regular Premium Policy Value every year from the start of Year 8 — higher performance bonus rate, rewarding the larger premium commitment.</div></div>
     <div class="feat-card"><div class="feat-icon">👨‍👩‍👧</div><div class="feat-lbl">Legacy Planning</div><div class="feat-title">Secondary Insured</div><div class="feat-desc">Name spouse or child under 16. Upon insured's death, policy continues under Secondary Insured seamlessly — no payout, no disruption. Max appointment age 75.</div></div>
     <div class="feat-card"><div class="feat-icon">🔄</div><div class="feat-lbl">Anytime</div><div class="feat-title">Fund Flexibility</div><div class="feat-desc">Full range of AIA retail funds, Elite Portfolios and Guided Portfolios (Mercer SAA). Switch, rebalance or auto-switch at any time. GAIF/GDIF dividends from next payout date.</div></div>
   </div>
 </div>
 
-<hr class="divider">
-
-<!-- §02 WELCOME BONUS -->
-<div class="section" id="welcome">
-  <div class="sec-ey"><span class="sec-num">§ 02</span> Welcome Bonus</div>
-  <h2>See your bonus.</h2>
-  <p class="sec-lead">PWV 2.0's Welcome Bonus is concentrated at the top tier — where S$42,000+ unlocks 3+4+5% across years 1–3. Slide to explore.</p>
-  <div class="card">
+    </div>
+  </div>
+</div>
+<div class="sec-collapse-wrap" id="secWrap3">
+  <div class="sec-toggle-bar" onclick="toggleSec(3)">
+    <div class="sec-toggle-left">
+      <div class="sec-toggle-num">§ 03</div>
+      <div>
+        <div class="sec-toggle-title">Welcome Bonus</div>
+        <div class="sec-toggle-subtitle">Up to 12% of your annual premium — calculate yours live</div>
+      </div>
+    </div>
+    <div class="sec-chevron">▾</div>
+  </div>
+  <div class="sec-body" id="secBody3">
+    <div class="sec-body-inner">
+<div class="card">
     <div class="card-ey">✦ TRY IT</div>
     <h3>How much would <em style="color:var(--gold)">your</em> Welcome Bonus be?</h3>
     <p>Slide to set your annual premium. Bonus tier and 3-year breakdown update live.</p>
@@ -368,17 +459,53 @@ footer{max-width:960px;margin:0 auto;padding:28px max(32px,env(safe-area-inset-l
   </div>
 </div>
 
-<hr class="divider">
+    </div>
+  </div>
+</div>
+<div class="sec-collapse-wrap" id="secWrap4">
+  <div class="sec-toggle-bar" onclick="toggleSec(4)">
+    <div class="sec-toggle-left">
+      <div class="sec-toggle-num">§ 04</div>
+      <div>
+        <div class="sec-toggle-title">The 11-Year Journey</div>
+        <div class="sec-toggle-subtitle">Premiums for 5 years, bonuses from year 8 — year by year</div>
+      </div>
+    </div>
+    <div class="sec-chevron">▾</div>
+  </div>
+  <div class="sec-body" id="secBody4">
+    <div class="sec-body-inner">
+<div class="card">
+    <div class="tl-track" id="tlTrack"></div>
+    <div class="ph-legend">
+      <div class="ph-item"><strong>Years 1–3</strong> Pay premiums + earn Welcome Bonuses (Tier-based: 0% / 3% / 3+4+5%)</div>
+      <div class="ph-item"><strong>Years 4–5</strong> Final two premium payments, no welcome bonus</div>
+      <div class="ph-item"><strong>Years 8–11</strong> Investment Bonus 2.5% of AP each year + Performance Bonus 0.40% of RP PV</div>
+      <div class="ph-item"><strong>Year 12+</strong> Performance Bonus 0.40% p.a. continues indefinitely</div>
+    </div>
+  </div>
+</div>
 
-<!-- §03 DIVIDEND PROJECTOR -->
-<div class="section" id="dividends">
-  <div class="sec-ey"><span class="sec-num">§ 03</span> Dividend Projector</div>
-  <h2>Project your dividends.</h2>
-  <p class="sec-lead">Model your policy value and dividend income over 50 years. All charges and bonuses factored in from the official product summary — adjust every assumption in real time.</p>
-  <div class="card">
+    </div>
+  </div>
+</div>
+<div class="sec-collapse-wrap" id="secWrap5">
+  <div class="sec-toggle-bar" onclick="toggleSec(5)">
+    <div class="sec-toggle-left">
+      <div class="sec-toggle-num">§ 05</div>
+      <div>
+        <div class="sec-toggle-title">Dividend Projector</div>
+        <div class="sec-toggle-subtitle">Model your income over 50 years — all variables in your hands</div>
+      </div>
+    </div>
+    <div class="sec-chevron">▾</div>
+  </div>
+  <div class="sec-body" id="secBody5">
+    <div class="sec-body-inner">
+<div class="card">
     <div class="card-ey">✦ INTERACTIVE MODEL — POLICY YEAR 1 TO 50</div>
     <h3>Your <em style="color:var(--teal)">dividend</em> income, projected.</h3>
-    <p style="margin-bottom:22px">Dividend fund assumed (e.g. GAIF/GDIF). Benefit charge = S$0. Supplementary charge 3.6% p.a. on RP policy value for first 7 years (vs 10 yrs for AWV). All bonuses per official Product Summary (Ver 1.0, Apr 2025).</p>
+    
 
     <div class="div-controls-grid">
       <div class="dcg"><label>Annual Regular Premium</label><div class="dv-disp gold" id="dpDisplay">S$42,000</div><div class="sl-wrap"><div class="sl-labels"><span>S$18,000</span><span>S$80,000</span></div><input type="range" id="dpSlider" min="18000" max="80000" step="1000" value="42000"></div></div>
@@ -427,32 +554,59 @@ footer{max-width:960px;margin:0 auto;padding:28px max(32px,env(safe-area-inset-l
   </div>
 </div>
 
-<hr class="divider">
-
-<!-- §04 JOURNEY -->
-<div class="section" id="journey">
-  <div class="sec-ey"><span class="sec-num">§ 04</span> The 11-Year Journey</div>
-  <h2>What happens, year by year.</h2>
-  <p class="sec-lead">Five years of premiums. Bonuses from year eight. Here's the full timeline.</p>
-  <div class="card">
-    <div class="tl-track" id="tlTrack"></div>
-    <div class="ph-legend">
-      <div class="ph-item"><strong>Years 1–3</strong> Pay premiums + earn Welcome Bonuses (Tier-based: 0% / 3% / 3+4+5%)</div>
-      <div class="ph-item"><strong>Years 4–5</strong> Final two premium payments, no welcome bonus</div>
-      <div class="ph-item"><strong>Years 8–11</strong> Investment Bonus 2.5% of AP each year + Performance Bonus 0.40% of RP PV</div>
-      <div class="ph-item"><strong>Year 12+</strong> Performance Bonus 0.40% p.a. continues indefinitely</div>
     </div>
   </div>
 </div>
-
-<hr class="divider">
-
-<!-- §05 FEES -->
-<div class="section" id="fees">
-  <div class="sec-ey"><span class="sec-num">§ 05</span> Fees &amp; Charges</div>
-  <h2>The real cost of the plan.</h2>
-  <p class="sec-lead">PWV 2.0's Supplementary Charge runs for only 7 years (vs AWV's 10 years) — a meaningful advantage for larger premiums.</p>
-  <div class="heads-up">
+<div class="sec-collapse-wrap" id="secWrap6">
+  <div class="sec-toggle-bar" onclick="toggleSec(6)">
+    <div class="sec-toggle-left">
+      <div class="sec-toggle-num">§ 06</div>
+      <div>
+        <div class="sec-toggle-title">Is This Plan Right for You?</div>
+        <div class="sec-toggle-subtitle">Find your fit — honest guidance on who this plan serves best</div>
+      </div>
+    </div>
+    <div class="sec-chevron">▾</div>
+  </div>
+  <div class="sec-body" id="secBody6">
+    <div class="sec-body-inner">
+<div class="fit-grid">
+    <div class="fit-card fit-yes">
+      <h4><span>🎯</span> This plan is made for you if…</h4>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You have S$18,000–S$42,000+ per year to deploy with purpose.</strong> The full welcome bonus potential unlocks at S$42,000 annually — this plan was built for investors who can commit at that level and want their capital working from day one.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You want to be done paying in five years and let the policy run.</strong> A shorter, sharper premium commitment appeals to higher earners who prefer to front-load their obligation and then step back. Five years, then freedom.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You're building wealth with a 10–20 year view</strong> — funding retirement income, creating a legacy, or building a dividend stream. The bonuses in years 8–11 are meaningfully sized at this premium level.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You prefer the supplementary charge to end sooner.</strong> At 7 years higher-premium investors benefit more from the shorter drag window — more of your returns compound unimpeded, sooner.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You want dividend income without waiting.</strong> With GAIF or GDIF, dividends can start flowing from the very next payout date — no initial investment period to clear first.</div></div>
+    </div>
+    <div class="fit-card fit-maybe">
+      <h4 style="color:#7a5c1e;"><span>💡</span> You might want to explore alternatives if…</h4>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>S$18,000 per year is a stretch right now.</strong> This plan's lowest tier (S$18K–S$23,999) carries zero welcome bonus — the plan truly shines at S$42,000+.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You'd prefer a longer, more gradual commitment.</strong> If paying S$18,000+ for five consecutive years feels concentrated an alternative plan with a longer premium schedule may spread the obligation more comfortably.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You need your capital to remain accessible within the first 7 years.</strong> Surrender charges are meaningful through Year 7. This plan rewards those who truly set it and forget it — if there's a chance you'll need liquidity before then, plan your emergency reserves accordingly first.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You're looking for guaranteed capital protection.</strong> As an ILP, policy value moves with fund performance. The structure is designed to grow over the long term, but no return is guaranteed and market fluctuations are part of the journey.</div></div>
+    </div>
+  </div>
+  <div class="fit-summary">
+    <p style="font-size:14px;color:var(--mid);line-height:1.75;"><strong style="color:var(--navy)">The bottom line:</strong> PWV 2.0 is the high-conviction plan for affluent investors who want a clean five-year obligation, a faster end to supplementary charges, and a higher performance bonus rate from year eight. At S$42,000+, the welcome bonus adds meaningful momentum. At S$18,000–S$24,000, the plan still works well. The right choice depends entirely on what you can deploy comfortably and consistently.</p>
+  </div>
+    </div>
+  </div>
+</div>
+<div class="sec-collapse-wrap" id="secWrap7">
+  <div class="sec-toggle-bar" onclick="toggleSec(7)">
+    <div class="sec-toggle-left">
+      <div class="sec-toggle-num">§ 07</div>
+      <div>
+        <div class="sec-toggle-title">Fees & Charges</div>
+        <div class="sec-toggle-subtitle">Full transparency — supplementary charge, surrender, and more</div>
+      </div>
+    </div>
+    <div class="sec-chevron">▾</div>
+  </div>
+  <div class="sec-body" id="secBody7">
+    <div class="sec-body-inner">
+<div class="heads-up">
     <div class="hu-lbl">⚠ Heads Up</div>
     <h3>Early surrender is <em>costly.</em></h3>
     <p>Surrender charges start at 60% in Years 1–2 and reach zero from Year 8 — two years earlier than AWV. Still, this plan is designed for committed long-term investors. Drag to see what you'd receive on a S$100,000 policy value.</p>
@@ -469,7 +623,7 @@ footer{max-width:960px;margin:0 auto;padding:28px max(32px,env(safe-area-inset-l
     </div>
   </div>
   <div class="card">
-    <div class="fee-row"><div><div class="fee-name">Supplementary Charge</div><div class="fee-desc">On Regular Premium Policy Value. Monthly, first 7 years only (3 years fewer than AWV), even during Premium Holiday. Not charged on top-up units.</div></div><div class="fee-val">3.60% p.a.</div></div>
+    <div class="fee-row"><div><div class="fee-name">Supplementary Charge</div><div class="fee-desc">On Regular Premium Policy Value. Monthly, first 7 years only (ends after 7 years), even during Premium Holiday. Not charged on top-up units.</div></div><div class="fee-val">3.60% p.a.</div></div>
     <div class="fee-row"><div><div class="fee-name">Top-Up Premium Charge</div><div class="fee-desc">Deducted upfront. Min top-up S$1,000. No supplementary charge or lock-in on top-up units.</div></div><div class="fee-val">3%</div></div>
     <div class="fee-row"><div><div class="fee-name">Premium Holiday Charge</div><div class="fee-desc">Years 1–5 only. 60% p.a. in yr 1–2, declining to 0% after 5th premium.</div></div><div class="fee-val">60%→0%</div></div>
     <div class="fee-row"><div><div class="fee-name">Full Surrender Charge</div><div class="fee-desc">60% in Yrs 1–2, declining to 0% from Yr 8 onwards. Applied to Regular Premium Policy Value.</div></div><div class="fee-val">60%→0%</div></div>
@@ -477,35 +631,9 @@ footer{max-width:960px;margin:0 auto;padding:28px max(32px,env(safe-area-inset-l
   </div>
 </div>
 
-<hr class="divider">
-
-<!-- §06 WHO IS IT FOR -->
-<div class="section" id="fit">
-  <div class="sec-ey"><span class="sec-num">§ 06</span> Who Is This For</div>
-  <h2>Find your fit.</h2>
-  <p class="sec-lead">PWV 2.0 is a premium-tier plan with a clear target profile. Here's an honest guide to help you decide if this is the right vehicle for your wealth journey.</p>
-  <div class="fit-grid">
-    <div class="fit-card fit-yes">
-      <h4><span>🎯</span> This plan is made for you if…</h4>
-      <div class="pc-item"><div class="pc-dot"></div><div><strong>You have S$18,000–S$42,000+ per year to deploy with purpose.</strong> The full welcome bonus potential unlocks at S$42,000 annually — this plan was built for investors who can commit at that level and want their capital working from day one.</div></div>
-      <div class="pc-item"><div class="pc-dot"></div><div><strong>You want to be done paying in five years and let the policy run.</strong> A shorter, sharper premium commitment appeals to higher earners who prefer to front-load their obligation and then step back. Five years, then freedom.</div></div>
-      <div class="pc-item"><div class="pc-dot"></div><div><strong>You're building wealth with a 10–20 year view</strong> — funding retirement income, creating a legacy, or building a dividend stream. The bonuses in years 8–11 are meaningfully sized at this premium level.</div></div>
-      <div class="pc-item"><div class="pc-dot"></div><div><strong>You prefer the supplementary charge to end sooner.</strong> At 7 years vs AWV's 10, higher-premium investors benefit more from the shorter drag window — more of your returns compound unimpeded, sooner.</div></div>
-      <div class="pc-item"><div class="pc-dot"></div><div><strong>You want dividend income without waiting.</strong> With GAIF or GDIF, dividends can start flowing from the very next payout date — no initial investment period to clear first.</div></div>
     </div>
-    <div class="fit-card fit-maybe">
-      <h4 style="color:#7a5c1e;"><span>💡</span> You might want to explore alternatives if…</h4>
-      <div class="pc-item"><div class="pc-dot"></div><div><strong>S$18,000 per year is a stretch right now.</strong> This plan's lowest tier (S$18K–S$23,999) carries zero welcome bonus — the plan truly shines at S$42,000+. If your budget is closer to S$7,800–S$12,000, AIA Wealth Venture is designed with your range in mind, with a generous up-to-35% welcome bonus.</div></div>
-      <div class="pc-item"><div class="pc-dot"></div><div><strong>You'd prefer a longer, more gradual commitment.</strong> If paying S$18,000+ for five consecutive years feels concentrated, AIA Wealth Venture's 8-year structure spreads the obligation more comfortably — or the lump sum mode spreads the capital impact differently.</div></div>
-      <div class="pc-item"><div class="pc-dot"></div><div><strong>You need your capital to remain accessible within the first 7 years.</strong> Surrender charges are meaningful through Year 7. This plan rewards those who truly set it and forget it — if there's a chance you'll need liquidity before then, plan your emergency reserves accordingly first.</div></div>
-      <div class="pc-item"><div class="pc-dot"></div><div><strong>You're looking for guaranteed capital protection.</strong> As an ILP, policy value moves with fund performance. The structure is designed to grow over the long term, but no return is guaranteed and market fluctuations are part of the journey.</div></div>
-    </div>
-  </div>
-  <div class="fit-summary">
-    <p style="font-size:14px;color:var(--mid);line-height:1.75;"><strong style="color:var(--navy)">The bottom line:</strong> PWV 2.0 is the high-conviction plan for affluent investors who want a clean five-year obligation, a faster end to supplementary charges, and a higher performance bonus rate from year eight. At S$42,000+, the welcome bonus adds meaningful momentum. At S$18,000–S$24,000, the plan still works — but AIA Wealth Venture may offer better value per dollar committed. The right choice depends entirely on what you can deploy comfortably and consistently.</p>
   </div>
 </div>
-
 <hr class="divider">
 <footer>
   <strong>Disclaimer:</strong> This product summary is for informational and illustrative purposes only and does not constitute financial advice. All projections are based on assumed rates and are not guaranteed. Dividend rates and fund performance will fluctuate. Past performance is not indicative of future results. AIA Platinum Wealth Venture 2.0 is underwritten by AIA Singapore Private Limited (Reg. No. 201106386R). Please refer to the official Product Summary (Version 1.0, April 2025) and consult a licensed AIA Financial Services Consultant. Protected up to specified limits by SDIC.
@@ -520,10 +648,10 @@ const TIERS=[
 ];
 // Full surrender charges per policy year
 const SC={1:60,2:60,3:50,4:40,5:30,6:20,7:10,8:0,9:0,10:0};
-const SUPP_YEARS=7; // PWV 2.0: only 7 years vs AWV's 10
+const SUPP_YEARS=7; // PWV 2.0: supplementary charge first 7 years only
 const SUPP_RATE=0.036;
 const INV_BONUS_RATE=0.025; // yrs 8-11
-const PERF_BONUS_RATE=0.004; // 0.40% from yr 8+ (higher than AWV's 0.30%)
+const PERF_BONUS_RATE=0.004; // 0.40% from yr 8 onwards
 const PREM_TERM=5;
 const TOP_UP_CHARGE=0.03;
 let tuOn=false;
@@ -789,6 +917,149 @@ document.addEventListener('keydown',e=>{
     lastY=y;
   },{passive:true});
 })();
+
+// ── USE CASES DATA (PWV 2.0) ──
+const UC_DATA = [
+  {
+    icon: '💰',
+    title: 'Funding Insurance Premiums with Dividends',
+    tagline: 'Let your investment pay for your protection — automatically.',
+    body: `<p>One of the most powerful strategies available with this plan is directing GAIF or GDIF dividend payouts to cover existing insurance premiums — whole life, term, health, or critical illness policies. Given the higher premium entry point of this plan, the dividend base grows faster, meaning this self-funding effect can become meaningful relatively early in the policy's life.</p>
+    <p>Once dividend income stabilises, it can offset a growing proportion of your annual protection costs without requiring any additional out-of-pocket outlay. Over time, the policy effectively becomes a wealth engine that also underwrites your family's insurance coverage — a dual purpose from a single committed investment.</p>
+    <p><strong>Best suited for:</strong> Higher-income professionals with substantial insurance portfolios who want to reduce the net cost of protection without surrendering coverage.</p>`,
+    highlights: [
+      {label:'Dividend availability', val:'From next GAIF/GDIF payout date'},
+      {label:'Dividend frequency', val:'Quarterly (GAIF/GDIF)'},
+      {label:'No lock-in on income', val:'Dividend units are freely accessible'},
+      {label:'Key advantage', val:'Higher premium base = larger early dividend potential'},
+    ]
+  },
+  {
+    icon: '🌅',
+    title: 'Retirement Income Supplement',
+    tagline: 'A structured, recurring income stream that doesn\'t deplete your capital.',
+    body: `<p>With five years of premium commitment followed by decades of compounding, this plan is a natural fit for building a retirement income engine. The short premium phase means your obligation ends quickly — then from year eight, Investment and Performance Bonuses add further momentum to the policy value, which in turn drives larger dividend payouts.</p>
+    <p>For clients who reinvest dividends during their accumulation years and switch to payout mode at retirement, the compounding effect over 10–20 years can create a substantial quarterly income stream. The Dividend Reinvestment Period slider in this tool lets you model that scenario precisely.</p>
+    <p><strong>Best suited for:</strong> Professionals in their 40s and 50s who want to front-load their investment commitment and then step back, letting the policy compound towards a structured retirement income without ongoing obligations.</p>`,
+    highlights: [
+      {label:'Income type', val:'Dividend payout (non-guaranteed)'},
+      {label:'Performance Bonus from yr 8', val:'0.40% p.a. of RP policy value'},
+      {label:'Investment Bonus', val:'2.5% × yrs 8–11 accelerates retirement capital'},
+      {label:'Premium obligation ends', val:'After 5 years — income potential lasts decades'},
+    ]
+  },
+  {
+    icon: '👨‍👩‍👧‍👦',
+    title: 'Generational Legacy & Wealth Transfer',
+    tagline: 'Build once. Pass it forward for decades.',
+    body: `<p>This plan matures at the insured's age 100. Using the Secondary Insured option, a child or spouse can be named as the continuation insured. Upon your passing, the policy does not pay out — it continues seamlessly under the next generation. No new underwriting. No policy reset. No interruption to the dividend income stream.</p>
+    <p>The result is a wealth vehicle that can span two generations: you build the capital base, your beneficiary inherits the policy in force, and the dividend income continues flowing without disruption. This is not a one-time inheritance — it is an income-generating asset that persists.</p>
+    <p><strong>Best suited for:</strong> Affluent parents and business owners who want to leave an ongoing financial asset, not just a lump sum, to the next generation.</p>`,
+    highlights: [
+      {label:'Policy term', val:'Up to insured\'s age 100'},
+      {label:'Secondary Insured', val:'Spouse or child under 16 (max age 75 at appointment)'},
+      {label:'On insured\'s death', val:'Policy continues under secondary — no payout'},
+      {label:'Legacy type', val:'Living income asset passed across generations'},
+    ]
+  },
+  {
+    icon: '🏛️',
+    title: 'Trust-Like Income Structure for Next Generation',
+    tagline: 'Controlled, scheduled wealth distribution — without a formal trust.',
+    body: `<p>A formal discretionary trust requires legal setup, ongoing administration, and trustee costs. This plan replicates the essential income-distribution function without those overheads: you accumulate a substantial policy value, hand the policy to your child via the Secondary Insured mechanism, and elect dividend payout mode — so the next generation receives structured, recurring income from a preserved capital base rather than a single lump sum.</p>
+    <p>The capital is never depleted by dividend distributions (provided the fund holds its value). The income is periodic, structured, and tied to the policy value — creating a framework very close in function to an income trust, without the legal complexity.</p>
+    <p><strong>Best suited for:</strong> High-net-worth individuals who want to provide structured, long-term income to children — particularly where a lump sum inheritance is not the preferred outcome.</p>`,
+    highlights: [
+      {label:'Capital preservation', val:'Policy value intact — only dividends paid out'},
+      {label:'Distribution control', val:'Policyholder elects payout or reinvest mode'},
+      {label:'Duration', val:'Can span decades post-handover via secondary insured'},
+      {label:'Formal trust required?', val:'No — structured within the policy itself'},
+    ]
+  },
+  {
+    icon: '⏰',
+    title: 'Early Dividend Access for Near-Retirement Clients',
+    tagline: 'For those approaching retirement who need income soon.',
+    body: `<p>Unlike structures that impose an initial investment period before income can flow, this plan allows dividend payouts from the very next GAIF or GDIF distribution date after the policy starts. For a client aged 60 who invests today, dividend income could begin within months — not years.</p>
+    <p>The Lump Sum mode is particularly attractive here: pay the full five-year commitment upfront, deploy maximum capital immediately, and begin receiving income from the largest possible base without waiting for annual premiums to accumulate. For clients with investable capital sitting in low-yield instruments, this is a compelling way to redirect savings into a higher-yield, income-structured vehicle immediately.</p>
+    <p><strong>Best suited for:</strong> Clients aged 50–75 with accumulated wealth who want to convert a portion into a structured income stream without a long lock-up period, while retaining the ability to pass the policy on as part of estate planning.</p>`,
+    highlights: [
+      {label:'Earliest dividend', val:'Next GAIF/GDIF payout date after policy starts'},
+      {label:'Entry age', val:'Up to age 75 (last birthday)'},
+      {label:'Lump sum option', val:'Full 5-year capital deployed on day one'},
+      {label:'Capital access', val:'Partial withdrawals allowed (charge reduces yr 1–7)'},
+    ]
+  },
+  {
+    icon: '🔒',
+    title: 'Capital Guarantee on Death — No Loss to Beneficiaries',
+    tagline: 'Even in turbulent markets, your family receives no less than what you put in.',
+    body: `<p>The death benefit under this plan is always the higher of: (a) total regular premium + top-up paid – total withdrawals, or (b) the current policy value. This insurance wrapper means that even if markets have fallen sharply and the policy value at time of death is below total premiums paid, your beneficiaries receive 100% of the capital you contributed — not the reduced market value.</p>
+    <p>This is a defining advantage over a direct fund investment, where a beneficiary simply inherits whatever the portfolio is worth on the day of death. Here, the insurance structure provides a permanent floor. In a market crash scenario, the death benefit could be substantially higher than what a direct investment would return.</p>
+    <p>Additionally, for accidental death within the first two policy years, an additional 100% of total regular premiums paid is paid on top — providing doubled capital protection during the early, highest-charge period of the policy.</p>
+    <p><strong>Best suited for:</strong> Any investor who wants certainty that market volatility at the point of death will not erode the inheritance left behind — particularly relevant for older investors or those with dependants who rely on the estate.</p>`,
+    highlights: [
+      {label:'Death benefit floor', val:'100% of total premiums paid (less withdrawals)'},
+      {label:'Accidental death bonus (yrs 1–2)', val:'Additional 100% of total regular premiums'},
+      {label:'Market protection', val:'Beneficiaries never receive less than premiums paid'},
+      {label:'vs direct fund investment', val:'Insurance wrapper guarantees the floor — a fund does not'},
+    ]
+  },
+];
+
+function buildUC(){
+  const container=document.getElementById('ucContainer');
+  UC_DATA.forEach((uc,i)=>{
+    const hlHtml=uc.highlights.map(h=>`<div class="uc-hl"><div class="uc-hl-label">${h.label}</div><div class="uc-hl-val">${h.val}</div></div>`).join('');
+    const div=document.createElement('div');
+    div.className='uc-item';
+    div.innerHTML=`
+      <div class="uc-header" onclick="toggleUC(${i})">
+        <div class="uc-icon">${uc.icon}</div>
+        <div class="uc-title-wrap">
+          <div class="uc-title">${uc.title}</div>
+          <div class="uc-tagline">${uc.tagline}</div>
+        </div>
+        <div class="uc-chevron">▾</div>
+      </div>
+      <div class="uc-body" id="ucBody${i}">
+        <div class="uc-body-inner">
+          ${uc.body}
+          <div class="uc-highlights">${hlHtml}</div>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+function toggleUC(i){
+  const item=document.querySelectorAll('.uc-item')[i];
+  const body=document.getElementById('ucBody'+i);
+  const isOpen=item.classList.contains('open');
+  item.classList.toggle('open',!isOpen);
+  body.style.maxHeight=isOpen?'0':body.scrollHeight+'px';
+}
+buildUC();
+
+
+// ── COLLAPSIBLE SECTIONS ──
+function toggleSec(n){
+  const wrap = document.getElementById('secWrap'+n);
+  const body = document.getElementById('secBody'+n);
+  const isOpen = wrap.classList.contains('open');
+  wrap.classList.toggle('open', !isOpen);
+  if(!isOpen){
+    body.style.maxHeight = body.scrollHeight + 'px';
+    setTimeout(()=>{ body.style.maxHeight = '9999px'; }, 460);
+  } else {
+    body.style.maxHeight = body.scrollHeight + 'px';
+    requestAnimationFrame(()=>{ body.style.maxHeight = '0'; });
+  }
+}
+(function(){
+  const w=document.getElementById('secWrap1'),b=document.getElementById('secBody1');
+  if(w&&b){w.classList.add('open');b.style.maxHeight='9999px';}
+})();
+
 </script>
 </body>
 </html>
