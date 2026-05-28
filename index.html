@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f7f5f0">
+<title>AIA Platinum Wealth Venture 2.0 · Ben Advisory</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1b2a4a;--gold:#b8952a;--gold-light:#d4af4a;--cream:#f7f5f0;
+  --card:#ffffff;--border:#e5e0d6;--mid:#5a5a5a;--light:#999;
+  --teal:#0d7a6e;--green:#2d6a4f;--red:#c0392b;--purple:#6b3fa0;
+  --accent:#b8952a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(247,245,240,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:13px max(32px,env(safe-area-inset-left)) 13px max(32px,env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;transition:transform .25s ease;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;letter-spacing:.02em;}
+.nav-logo span{color:var(--gold);font-style:italic;}
+.nav-links{display:flex;gap:22px;flex-wrap:wrap;}
+.nav-links a{text-decoration:none;color:var(--mid);font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+
+/* HERO */
+.hero{max-width:960px;margin:0 auto;padding:80px max(32px,env(safe-area-inset-left)) 56px;}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,84px);line-height:1;font-weight:400;margin-bottom:24px;}
+.hero h1 em{color:var(--gold);font-style:italic;display:block;}
+.hero h1 small{font-size:.55em;color:var(--mid);font-style:normal;}
+.hero-rule{width:100px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);border-radius:2px;margin-bottom:28px;}
+.hero-lead{font-size:19px;color:var(--mid);max-width:640px;font-weight:300;line-height:1.75;}
+.hero-lead strong{color:var(--navy);font-weight:600;}
+
+/* STAT GRID */
+.stat-grid{max-width:960px;margin:0 auto 72px;padding:0 max(32px,env(safe-area-inset-left));display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 22px;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));}
+.stat-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-bottom:10px;font-weight:500;}
+.stat-number{font-family:'Cormorant Garamond',serif;font-size:44px;line-height:1;font-weight:400;color:var(--navy);margin-bottom:4px;}
+.stat-number.gold{color:var(--gold);}
+.stat-number.teal{color:var(--teal);}
+.stat-sub{font-size:12px;color:var(--light);}
+.prem-mode-toggle{display:flex;gap:6px;margin-top:10px;}
+.pmt-btn{flex:1;padding:6px 8px;border-radius:8px;border:1.5px solid var(--border);background:transparent;font-size:11px;font-weight:500;cursor:pointer;transition:all .2s;color:var(--mid);}
+.pmt-btn.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+/* SECTIONS */
+.section{max-width:960px;margin:0 auto;padding:0 max(32px,env(safe-area-inset-left)) 72px;}
+.sec-ey{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:14px;}
+.sec-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--gold);}
+.section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,52px);font-weight:400;line-height:1.1;margin-bottom:12px;}
+.sec-lead{color:var(--mid);font-size:16px;margin-bottom:36px;font-weight:300;max-width:640px;line-height:1.7;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:34px;margin-bottom:18px;}
+.card-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:600;}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin-bottom:10px;}
+.card p{color:var(--mid);font-size:14px;line-height:1.7;}
+
+/* SLIDERS */
+input[type=range]{-webkit-appearance:none;width:100%;height:5px;background:var(--border);border-radius:3px;outline:none;cursor:pointer;touch-action:pan-y;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--card);border:2.5px solid var(--gold);box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:grab;transition:transform .15s;}
+input[type=range]::-webkit-slider-thumb:active{transform:scale(1.2);}
+.sl-wrap{margin:16px 0 6px;}
+.sl-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--light);margin-bottom:6px;}
+
+/* LABELS + AMOUNTS */
+.ba-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:4px;}
+.ba-amt{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:400;color:var(--navy);}
+
+/* TIERS */
+.tiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:22px;}
+.tier{border:1.5px solid var(--border);border-radius:12px;padding:16px;transition:all .25s;}
+.tier.active{border-color:var(--navy);background:var(--navy);color:#fff;}
+.tier-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;opacity:.6;}
+.tier-rng{font-size:11px;margin-bottom:8px;opacity:.7;}
+.tier-pct{font-family:'Cormorant Garamond',serif;font-size:28px;}
+
+/* WB BARS */
+.bars{display:flex;align-items:flex-end;gap:12px;height:110px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.bar-col .bar{width:100%;border-radius:5px 5px 0 0;background:var(--gold);opacity:.85;transition:height .4s cubic-bezier(.34,1.56,.64,1);}
+.bar-col .bpct{font-size:12px;color:var(--mid);font-weight:500;}
+.bar-col .byr{font-size:11px;color:var(--light);}
+.bar-col.inactive .bar{background:var(--border);opacity:1;}
+.bar-col.inactive .bpct{color:var(--light);opacity:.5;}
+.sum-row{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed var(--border);margin-top:18px;padding-top:16px;font-size:14px;color:var(--mid);}
+.sum-row strong{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--navy);font-weight:400;}
+
+/* TIMELINE */
+.tl-track{display:flex;overflow-x:auto;padding-bottom:12px;}
+.tl-track::-webkit-scrollbar{display:none;}
+.yr-node{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:68px;}
+.yr-badge{font-size:9px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;height:14px;font-weight:500;color:var(--light);}
+.yr-badge.wb{color:var(--gold);}
+.yr-badge.inv{color:var(--teal);}
+.yr-circ{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:16px;background:var(--card);}
+.yr-circ.pw{border-color:var(--gold);color:var(--gold);background:rgba(184,149,42,.06);}
+.yr-circ.pp{border-color:var(--mid);color:var(--mid);}
+.yr-circ.pi{border-color:var(--teal);color:var(--teal);background:rgba(13,122,110,.06);}
+.yr-sub{font-size:9px;color:var(--light);margin-top:5px;text-align:center;}
+.tag-p{display:inline-block;padding:2px 5px;border-radius:4px;font-size:9px;font-weight:500;background:rgba(13,122,110,.1);color:var(--teal);}
+.ph-legend{display:flex;flex-direction:column;gap:8px;margin-top:22px;}
+.ph-item{font-size:14px;color:var(--mid);}
+.ph-item strong{color:var(--navy);font-weight:600;margin-right:8px;}
+
+/* FEES */
+.fee-row{border-bottom:1px solid var(--border);padding:20px 0;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;}
+.fee-row:last-child{border-bottom:none;}
+.fee-name{font-size:15px;font-weight:500;margin-bottom:3px;}
+.fee-desc{font-size:12px;color:var(--light);line-height:1.55;}
+.fee-val{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--navy);text-align:right;white-space:nowrap;}
+.sur-yr{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:400;line-height:1;margin-bottom:20px;text-align:right;}
+.sur-yr small{font-size:16px;font-family:'DM Sans',sans-serif;color:var(--light);}
+.sur-bar{display:flex;border-radius:10px;overflow:hidden;height:50px;margin-top:20px;}
+.sur-you{background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:500;transition:width .4s;}
+.sur-chg{background:rgba(184,149,42,.15);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:13px;font-weight:500;transition:width .4s;border:1px solid rgba(184,149,42,.3);border-left:none;}
+.sur-amts{display:flex;justify-content:space-between;margin-top:14px;align-items:flex-end;}
+.sa-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:4px;}
+.sa-v{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;}
+.sa-v.amber{color:var(--gold);}
+.heads-up{background:rgba(184,149,42,.05);border:1px solid rgba(184,149,42,.25);border-radius:16px;padding:26px;margin-bottom:18px;}
+.hu-lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;}
+.heads-up h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;margin-bottom:8px;}
+.heads-up h3 em{color:var(--gold);}
+.heads-up p{font-size:13px;color:var(--mid);line-height:1.65;}
+
+/* FIT SECTION */
+.fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.fit-card{border-radius:16px;padding:28px;}
+.fit-yes{background:rgba(45,106,79,.05);border:1px solid rgba(45,106,79,.2);}
+.fit-maybe{background:rgba(184,149,42,.05);border:1px solid rgba(184,149,42,.22);}
+.fit-card h4{font-family:'Cormorant Garamond',serif;font-size:22px;margin-bottom:18px;font-weight:400;}
+.pc-item{display:flex;gap:10px;margin-bottom:13px;font-size:14px;line-height:1.6;}
+.pc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:7px;}
+.fit-yes .pc-dot{background:var(--green);}
+.fit-maybe .pc-dot{background:var(--gold);}
+.fit-summary{background:rgba(27,42,74,.05);border:1px solid rgba(27,42,74,.12);border-radius:14px;padding:22px;margin-top:18px;}
+
+/* FEAT GRID */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;}
+.feat-icon{font-size:20px;margin-bottom:10px;}
+.feat-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;font-weight:600;}
+.feat-title{font-family:'Cormorant Garamond',serif;font-size:19px;margin-bottom:6px;}
+.feat-desc{font-size:12px;color:var(--mid);line-height:1.6;}
+
+/* DIVIDEND WIDGET */
+.div-controls-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:18px;}
+.dcg label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--light);font-weight:500;display:block;margin-bottom:5px;}
+.dv-disp{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--navy);margin-bottom:5px;}
+.dv-disp.gold{color:var(--gold);}
+.dv-disp.teal{color:var(--teal);}
+.dv-disp.purple{color:var(--purple);}
+.dv-disp.green{color:var(--green);}
+
+.toggle-row{display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:13px;cursor:pointer;user-select:none;transition:all .2s;margin-bottom:12px;border:1.5px solid var(--border);background:var(--cream);}
+.toggle-row.gold-theme{border-color:rgba(184,149,42,.25);background:rgba(184,149,42,.04);}
+.toggle-row.gold-theme.on{background:rgba(184,149,42,.1);border-color:var(--gold);}
+.tog-btn{width:44px;height:24px;border-radius:12px;position:relative;flex-shrink:0;transition:background .2s;background:var(--border);}
+.tog-btn.on-gold{background:var(--gold);}
+.tog-btn::after{content:'';position:absolute;width:18px;height:18px;background:#fff;border-radius:50%;top:3px;left:3px;transition:left .2s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.tog-btn.on-gold::after{left:23px;}
+.toggle-text{flex:1;}
+.toggle-text strong{font-size:14px;display:block;margin-bottom:2px;}
+.toggle-text span{font-size:12px;color:var(--mid);}
+.toggle-badge{font-family:'Cormorant Garamond',serif;font-size:18px;white-space:nowrap;color:var(--gold);}
+
+.div-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+.ds-card{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:12px 14px;}
+.ds-card.hl{background:rgba(13,122,110,.05);border-color:rgba(13,122,110,.22);}
+.ds-card.hl2{background:rgba(107,63,160,.05);border-color:rgba(107,63,160,.22);}
+.ds-lbl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:3px;}
+.ds-val{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--navy);}
+.ds-val.teal{color:var(--teal);}
+.ds-val.gold{color:var(--gold);}
+.ds-val.purple{color:var(--purple);}
+
+.reinvest-banner{background:rgba(107,63,160,.06);border:1px solid rgba(107,63,160,.2);border-radius:10px;padding:11px 15px;margin-bottom:14px;font-size:13px;color:var(--purple);display:none;}
+.reinvest-banner.show{display:block;}
+
+.tbl-fullscreen-btn{display:none;margin-bottom:10px;padding:8px 16px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;}
+.fullscreen-close{display:none;position:fixed;top:12px;right:12px;z-index:1000;padding:8px 14px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;}
+.div-tbl-wrap{overflow:auto;border:1px solid var(--border);border-radius:12px;max-height:540px;}
+.div-tbl-wrap.fullscreen{position:fixed;top:0;left:0;right:0;bottom:0;max-height:100vh;z-index:999;border-radius:0;border:none;background:var(--card);}
+.div-tbl-wrap.fullscreen~.fullscreen-close{display:block;}
+.div-tbl-wrap::-webkit-scrollbar{width:5px;height:5px;}
+.div-tbl-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+table.dtbl{width:100%;border-collapse:collapse;font-size:12.5px;}
+table.dtbl thead th{position:sticky;top:0;background:var(--navy);color:#fff;padding:9px 12px;text-align:right;font-size:10px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;}
+table.dtbl thead th:first-child{text-align:center;min-width:34px;}
+table.dtbl tbody tr{border-bottom:1px solid var(--border);}
+table.dtbl tbody tr:hover{background:rgba(0,0,0,.02);}
+table.dtbl tbody tr.rw td:first-child{border-left:3px solid var(--gold);}
+table.dtbl tbody tr.rp td:first-child{border-left:3px solid var(--mid);}
+table.dtbl tbody tr.ri td:first-child{border-left:3px solid var(--teal);}
+table.dtbl tbody tr.rg td:first-child{border-left:3px solid var(--green);}
+table.dtbl tbody tr.reinvesting td{background:rgba(107,63,160,.03);}
+table.dtbl tbody td{padding:7px 12px;text-align:right;color:var(--mid);}
+table.dtbl tbody td:first-child{text-align:center;font-weight:600;color:var(--navy);}
+table.dtbl tbody td.bold{font-weight:600;color:var(--navy);}
+table.dtbl tbody td.teal{color:var(--teal);font-weight:600;}
+table.dtbl tbody td.gold2{color:var(--gold);font-weight:600;}
+table.dtbl tbody td.purple{color:var(--purple);font-weight:600;}
+table.dtbl tbody td.dimmed{color:var(--light);font-style:italic;}
+.pk{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
+.pk-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mid);}
+.pk-dot{width:11px;height:11px;border-radius:2px;flex-shrink:0;}
+
+.divider{border:none;border-top:1px solid var(--border);margin:0 max(32px,env(safe-area-inset-left)) 72px;}
+footer{max-width:960px;margin:0 auto;padding:28px max(32px,env(safe-area-inset-left)) 60px;font-size:12px;color:var(--light);line-height:1.7;}
+
+/* FREEZE FIRST COL ON MOBILE */
+@media(max-width:640px){
+  table.dtbl tbody td:first-child,table.dtbl thead th:first-child{position:sticky;left:0;background:var(--card);z-index:2;box-shadow:2px 0 4px rgba(0,0,0,.05);}
+  table.dtbl thead th:first-child{background:var(--navy);}
+  table.dtbl tbody tr.reinvesting td:first-child{background:rgba(107,63,160,.05);}
+}
+
+/* FULLSCREEN BTN ON TABLETS/PHONES */
+@media(max-width:1024px){.tbl-fullscreen-btn{display:inline-flex;align-items:center;gap:6px;}}
+
+/* TABLET */
+@media(min-width:641px) and (max-width:1024px){
+  .stat-grid{grid-template-columns:1fr 1fr;}
+  .div-strip{grid-template-columns:1fr 1fr;}
+  .div-tbl-wrap{max-height:60vh;}
+  .section,.hero{padding-left:max(24px,env(safe-area-inset-left));padding-right:max(24px,env(safe-area-inset-right));}
+  .stat-grid{padding:0 max(24px,env(safe-area-inset-left));}
+}
+
+/* PHONE */
+@media(max-width:640px){
+  nav{padding:10px max(16px,env(safe-area-inset-left));}
+  .nav-links a{font-size:10px;} .nav-links{gap:10px;}
+  .hero{padding:44px max(16px,env(safe-area-inset-left)) 36px;}
+  .hero h1{font-size:clamp(38px,10vw,58px);}
+  .hero-lead{font-size:15px;}
+  .section{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));padding-bottom:44px;}
+  .section h2{font-size:clamp(28px,7vw,38px);}
+  .stat-grid{padding:0 max(16px,env(safe-area-inset-left));grid-template-columns:1fr 1fr;gap:10px;margin-bottom:44px;}
+  .stat-card{padding:16px 14px;} .stat-number{font-size:34px;}
+  .feat-grid,.fit-grid{grid-template-columns:1fr;}
+  .tiers{grid-template-columns:1fr 1fr 1fr;gap:8px;} .tier{padding:12px 10px;} .tier-pct{font-size:22px;}
+  .card{padding:20px 16px;}
+  .ba-amt{font-size:36px;} .dv-disp{font-size:24px;}
+  .div-controls-grid{grid-template-columns:1fr;}
+  .div-strip{grid-template-columns:1fr 1fr;gap:8px;} .ds-val{font-size:15px;}
+  .toggle-row{padding:13px 14px;gap:10px;} .toggle-text strong{font-size:13px;} .toggle-text span{font-size:11px;}
+  .pmt-btn{font-size:10px;padding:5px 6px;}
+  .sur-yr{font-size:40px;} .sa-v{font-size:26px;}
+  .bars{height:90px;}
+  .div-tbl-wrap{border-radius:8px;}
+  table.dtbl{font-size:11px;}
+  table.dtbl thead th,table.dtbl tbody td{padding:6px 8px;white-space:nowrap;}
+}
+
+@media(max-height:500px) and (orientation:landscape){
+  nav{padding-top:7px;padding-bottom:7px;}
+  .hero{padding-top:28px;padding-bottom:24px;}
+  .hero h1{font-size:clamp(30px,5vw,48px);margin-bottom:12px;}
+  .stat-grid{margin-bottom:30px;}
+  .section{padding-bottom:36px;}
+  .div-tbl-wrap{max-height:70vh;}
+}
+@media(orientation:landscape) and (max-width:1024px){
+  .div-tbl-wrap{max-height:calc(100vh - 110px);}
+  table.dtbl thead th,table.dtbl tbody td{padding:5px 9px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <div class="nav-logo">AIA Platinum Wealth<span>Venture 2.0</span></div>
+  <div class="nav-links">
+    <a href="#welcome">Welcome Bonus</a>
+    <a href="#dividends">Dividends</a>
+    <a href="#journey">Journey</a>
+    <a href="#fees">Fees</a>
+    <a href="#fit">Who Is It For</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Investment-Linked Policy · AIA Singapore · Version 1.0 (Apr 2025)</div>
+  <h1>AIA Platinum Wealth<em>Venture 2.0</em></h1>
+  <div class="hero-rule"></div>
+  <p class="hero-lead">A <strong>5-year</strong> limited-pay investment plan for the affluent investor — putting <strong>100%</strong> of your premium to work from day one, with bonuses from year eight that grow your wealth long after your last premium is paid.</p>
+</div>
+
+<!-- STAT GRID -->
+<div class="stat-grid">
+  <div class="stat-card" id="statPremCard">
+    <div class="stat-label">Premium Term</div>
+    <div class="stat-number" id="statPremNum">5 <span style="font-family:'DM Sans',sans-serif;font-size:20px;color:var(--light)">years</span></div>
+    <div class="stat-sub" id="statPremSub">Pay once a year, for 5 years</div>
+    <div class="prem-mode-toggle">
+      <button class="pmt-btn active" id="btnAnnual" onclick="setPremMode('annual')">5-Year Annual</button>
+      <button class="pmt-btn" id="btnLump" onclick="setPremMode('lump')">1× Lump Sum</button>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Day-One Allocation</div>
+    <div class="stat-number gold">100<span style="font-family:'DM Sans',sans-serif;font-size:22px">%</span></div>
+    <div class="stat-sub">Full premium invested immediately</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Welcome Bonus</div>
+    <div class="stat-number" style="font-size:36px">up to 12<span style="font-family:'DM Sans',sans-serif;font-size:18px;color:var(--light)">%</span></div>
+    <div class="stat-sub">Yrs 1–3 · Tier 3 (S$42K+) only</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Investment Bonus</div>
+    <div class="stat-number teal" style="font-size:34px">2.5<span style="font-family:'DM Sans',sans-serif;font-size:16px;color:var(--light)">% × 4 yrs</span></div>
+    <div class="stat-sub">Yrs 8–11 · of annualised regular premium</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- §01 FEATURES -->
+<div class="section">
+  <div class="sec-ey"><span class="sec-num">§ 01</span> Key Features</div>
+  <h2>Engineered for affluent wealth builders.</h2>
+  <p class="sec-lead">Five years of premiums. A decade of bonuses. Designed for those with S$18,000+ per year who want a defined commitment and long runway for growth.</p>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-icon">🛡️</div><div class="feat-lbl">Protection</div><div class="feat-title">Death Benefit</div><div class="feat-desc">Higher of: (a) total regular premium + top-ups – withdrawals, or (b) policy value — less applicable charges. Accidental death within first 2 policy years: additional 100% of total regular premium paid.</div></div>
+    <div class="feat-card"><div class="feat-icon">⭐</div><div class="feat-lbl">Loyalty</div><div class="feat-title">Performance Bonus</div><div class="feat-desc">0.40% p.a. of Regular Premium Policy Value every year from the start of Year 8 — higher rate than AWV's 0.30%, rewarding the larger premium commitment.</div></div>
+    <div class="feat-card"><div class="feat-icon">👨‍👩‍👧</div><div class="feat-lbl">Legacy Planning</div><div class="feat-title">Secondary Insured</div><div class="feat-desc">Name spouse or child under 16. Upon insured's death, policy continues under Secondary Insured seamlessly — no payout, no disruption. Max appointment age 75.</div></div>
+    <div class="feat-card"><div class="feat-icon">🔄</div><div class="feat-lbl">Anytime</div><div class="feat-title">Fund Flexibility</div><div class="feat-desc">Full range of AIA retail funds, Elite Portfolios and Guided Portfolios (Mercer SAA). Switch, rebalance or auto-switch at any time. GAIF/GDIF dividends from next payout date.</div></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- §02 WELCOME BONUS -->
+<div class="section" id="welcome">
+  <div class="sec-ey"><span class="sec-num">§ 02</span> Welcome Bonus</div>
+  <h2>See your bonus.</h2>
+  <p class="sec-lead">PWV 2.0's Welcome Bonus is concentrated at the top tier — where S$42,000+ unlocks 3+4+5% across years 1–3. Slide to explore.</p>
+  <div class="card">
+    <div class="card-ey">✦ TRY IT</div>
+    <h3>How much would <em style="color:var(--gold)">your</em> Welcome Bonus be?</h3>
+    <p>Slide to set your annual premium. Bonus tier and 3-year breakdown update live.</p>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-top:26px;gap:16px;flex-wrap:wrap;">
+      <div><div class="ba-label">Annual Premium</div><div class="ba-amt" id="premDisplay">S$42,000</div></div>
+      <div style="text-align:right"><div class="ba-label">Projected Welcome Bonus (3yr total)</div><div class="ba-amt" id="bonusDisplay" style="color:var(--gold)">S$5,040</div></div>
+    </div>
+    <div class="sl-wrap"><div class="sl-labels"><span>S$18,000</span><span>S$80,000</span></div><input type="range" id="premSlider" min="18000" max="80000" step="1000" value="42000"></div>
+    <div class="tiers">
+      <div class="tier" id="t1"><div class="tier-lbl">Tier 1</div><div class="tier-rng">S$18K–23,999</div><div class="tier-pct">0%</div></div>
+      <div class="tier" id="t2"><div class="tier-lbl">Tier 2</div><div class="tier-rng">S$24K–41,999</div><div class="tier-pct">3%</div></div>
+      <div class="tier active" id="t3"><div class="tier-lbl">Tier 3</div><div class="tier-rng">S$42,000+</div><div class="tier-pct">12%</div></div>
+    </div>
+    <div style="margin-top:26px">
+      <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:14px">Welcome Bonus % per year (years 1–3)</div>
+      <div class="bars" id="wbBars"></div>
+    </div>
+    <div class="sum-row"><span>Total premiums (5 yrs)</span><strong id="totalPrem">S$210,000</strong></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- §03 DIVIDEND PROJECTOR -->
+<div class="section" id="dividends">
+  <div class="sec-ey"><span class="sec-num">§ 03</span> Dividend Projector</div>
+  <h2>Project your dividends.</h2>
+  <p class="sec-lead">Model your policy value and dividend income over 50 years. All charges and bonuses factored in from the official product summary — adjust every assumption in real time.</p>
+  <div class="card">
+    <div class="card-ey">✦ INTERACTIVE MODEL — POLICY YEAR 1 TO 50</div>
+    <h3>Your <em style="color:var(--teal)">dividend</em> income, projected.</h3>
+    <p style="margin-bottom:22px">Dividend fund assumed (e.g. GAIF/GDIF). Benefit charge = S$0. Supplementary charge 3.6% p.a. on RP policy value for first 7 years (vs 10 yrs for AWV). All bonuses per official Product Summary (Ver 1.0, Apr 2025).</p>
+
+    <div class="div-controls-grid">
+      <div class="dcg"><label>Annual Regular Premium</label><div class="dv-disp gold" id="dpDisplay">S$42,000</div><div class="sl-wrap"><div class="sl-labels"><span>S$18,000</span><span>S$80,000</span></div><input type="range" id="dpSlider" min="18000" max="80000" step="1000" value="42000"></div></div>
+      <div class="dcg"><label>Dividend Yield p.a.</label><div class="dv-disp teal" id="drDisplay">7.0%</div><div class="sl-wrap"><div class="sl-labels"><span>5%</span><span>7.5%</span><span>10%</span></div><input type="range" id="drSlider" min="5" max="10" step="0.5" value="7"></div></div>
+    </div>
+    <div class="div-controls-grid">
+      <div class="dcg"><label>Capital Gains Rate p.a. (fund growth excl. dividend)</label><div class="dv-disp purple" id="cgDisplay">0.0%</div><div class="sl-wrap"><div class="sl-labels"><span>0%</span><span>5%</span><span>10%</span></div><input type="range" id="cgSlider" min="0" max="10" step="0.5" value="0"></div></div>
+      <div class="dcg"><label>Dividend Reinvestment Period (years before withdrawal)</label><div class="dv-disp green" id="riDisplay">0 years <span style="font-size:13px;color:var(--light)">(withdraw from Yr 1)</span></div><div class="sl-wrap"><div class="sl-labels"><span>0 yrs</span><span>10 yrs</span><span>25 yrs</span></div><input type="range" id="riSlider" min="0" max="25" step="1" value="0"></div></div>
+    </div>
+
+    <div class="toggle-row gold-theme" id="tuRow" onclick="toggleTU()">
+      <div class="tog-btn" id="tuBtn"></div>
+      <div class="toggle-text">
+        <strong>🚀 Lump Sum Mode — Pay 5 Years Upfront as One Top-Up</strong>
+        <span>Inject 4 × annual premium as a lump sum top-up in Year 1 (after 3% top-up charge), on top of your Year 1 regular premium. Policy self-funds premiums from top-up in years 2–5. Total out-of-pocket = 5 × AP. No supplementary charge on top-up units.</span>
+      </div>
+      <div class="toggle-badge" id="tuBadge">+S$0</div>
+    </div>
+
+    <div class="reinvest-banner" id="reinvestBanner">🔁 <strong>Reinvestment active:</strong> Dividends compound inside the policy for <span id="riYrsText">0</span> years. Cash withdrawals begin from Year <span id="riStartText">1</span>.</div>
+
+    <div class="div-strip">
+      <div class="ds-card"><div class="ds-lbl">Total PV at Yr 8</div><div class="ds-val" id="sv8">—</div></div>
+      <div class="ds-card hl"><div class="ds-lbl">1st Cash Dividend</div><div class="ds-val teal" id="sd1">—</div></div>
+      <div class="ds-card hl"><div class="ds-lbl">Annual Div at Yr 15</div><div class="ds-val teal" id="sd15">—</div></div>
+      <div class="ds-card"><div class="ds-lbl">Cumul. Dividends (50yr)</div><div class="ds-val gold" id="sdtot">—</div></div>
+    </div>
+
+    <button class="tbl-fullscreen-btn" onclick="toggleTableFS()" id="fsBtnLabel">⛶ Full Screen Table</button>
+    <button class="fullscreen-close" onclick="toggleTableFS()">✕ Close</button>
+    <div class="div-tbl-wrap" id="divTblWrap">
+      <table class="dtbl">
+        <thead id="divThead"></thead>
+        <tbody id="dtbody"></tbody>
+      </table>
+    </div>
+
+    <div class="pk">
+      <div class="pk-item"><div class="pk-dot" style="background:var(--gold)"></div>Yrs 1–3: Premium + Welcome Bonus</div>
+      <div class="pk-item"><div class="pk-dot" style="background:var(--mid)"></div>Yrs 4–5: Premium only</div>
+      <div class="pk-item"><div class="pk-dot" style="background:var(--teal)"></div>Yrs 8–11: Invest + Perf Bonus</div>
+      <div class="pk-item"><div class="pk-dot" style="background:var(--green)"></div>Yr 12+: Perf Bonus continues</div>
+      <div class="pk-item"><div class="pk-dot" style="background:var(--purple)"></div>Reinvestment period</div>
+    </div>
+    <p style="font-size:12px;color:var(--light);margin-top:14px;line-height:1.6">⚠ For illustration only. Dividend yields, capital gains and fund performance are not guaranteed. Please refer to the official AIA Product Summary (Ver 1.0, Apr 2025) and consult a licensed AIA Financial Services Consultant.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- §04 JOURNEY -->
+<div class="section" id="journey">
+  <div class="sec-ey"><span class="sec-num">§ 04</span> The 11-Year Journey</div>
+  <h2>What happens, year by year.</h2>
+  <p class="sec-lead">Five years of premiums. Bonuses from year eight. Here's the full timeline.</p>
+  <div class="card">
+    <div class="tl-track" id="tlTrack"></div>
+    <div class="ph-legend">
+      <div class="ph-item"><strong>Years 1–3</strong> Pay premiums + earn Welcome Bonuses (Tier-based: 0% / 3% / 3+4+5%)</div>
+      <div class="ph-item"><strong>Years 4–5</strong> Final two premium payments, no welcome bonus</div>
+      <div class="ph-item"><strong>Years 8–11</strong> Investment Bonus 2.5% of AP each year + Performance Bonus 0.40% of RP PV</div>
+      <div class="ph-item"><strong>Year 12+</strong> Performance Bonus 0.40% p.a. continues indefinitely</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- §05 FEES -->
+<div class="section" id="fees">
+  <div class="sec-ey"><span class="sec-num">§ 05</span> Fees &amp; Charges</div>
+  <h2>The real cost of the plan.</h2>
+  <p class="sec-lead">PWV 2.0's Supplementary Charge runs for only 7 years (vs AWV's 10 years) — a meaningful advantage for larger premiums.</p>
+  <div class="heads-up">
+    <div class="hu-lbl">⚠ Heads Up</div>
+    <h3>Early surrender is <em>costly.</em></h3>
+    <p>Surrender charges start at 60% in Years 1–2 and reach zero from Year 8 — two years earlier than AWV. Still, this plan is designed for committed long-term investors. Drag to see what you'd receive on a S$100,000 policy value.</p>
+  </div>
+  <div class="card">
+    <div class="ba-label">If you surrender in</div>
+    <div class="sur-yr" id="surYrDisp">Year 1 <small>of 10</small></div>
+    <div class="sl-wrap"><div class="sl-labels"><span>Yr 1</span><span>Yr 5</span><span>Yr 10</span></div><input type="range" id="surSlider" min="1" max="10" step="1" value="1"></div>
+    <div class="ba-label" style="margin-top:14px">On a S$100,000 policy value</div>
+    <div class="sur-bar"><div class="sur-you" id="surYouBar" style="width:40%">You get 40%</div><div class="sur-chg" id="surChgBar" style="width:60%">Charge 60%</div></div>
+    <div class="sur-amts">
+      <div><div class="sa-lbl">You receive</div><div class="sa-v" id="surYouAmt">S$40,000</div></div>
+      <div style="text-align:right"><div class="sa-lbl">Surrender charge</div><div class="sa-v amber" id="surChgPct">60%</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="fee-row"><div><div class="fee-name">Supplementary Charge</div><div class="fee-desc">On Regular Premium Policy Value. Monthly, first 7 years only (3 years fewer than AWV), even during Premium Holiday. Not charged on top-up units.</div></div><div class="fee-val">3.60% p.a.</div></div>
+    <div class="fee-row"><div><div class="fee-name">Top-Up Premium Charge</div><div class="fee-desc">Deducted upfront. Min top-up S$1,000. No supplementary charge or lock-in on top-up units.</div></div><div class="fee-val">3%</div></div>
+    <div class="fee-row"><div><div class="fee-name">Premium Holiday Charge</div><div class="fee-desc">Years 1–5 only. 60% p.a. in yr 1–2, declining to 0% after 5th premium.</div></div><div class="fee-val">60%→0%</div></div>
+    <div class="fee-row"><div><div class="fee-name">Full Surrender Charge</div><div class="fee-desc">60% in Yrs 1–2, declining to 0% from Yr 8 onwards. Applied to Regular Premium Policy Value.</div></div><div class="fee-val">60%→0%</div></div>
+    <div class="fee-row"><div><div class="fee-name">Partial Withdrawal Charge</div><div class="fee-desc">Factor 1.5× in Yrs 1–2, declining to 0 from Yr 8. Min withdrawal S$1,000; min remaining PV S$10,000. Not applicable to top-up or reinvested dividend units.</div></div><div class="fee-val">1.5×→0</div></div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- §06 WHO IS IT FOR -->
+<div class="section" id="fit">
+  <div class="sec-ey"><span class="sec-num">§ 06</span> Who Is This For</div>
+  <h2>Find your fit.</h2>
+  <p class="sec-lead">PWV 2.0 is a premium-tier plan with a clear target profile. Here's an honest guide to help you decide if this is the right vehicle for your wealth journey.</p>
+  <div class="fit-grid">
+    <div class="fit-card fit-yes">
+      <h4><span>🎯</span> This plan is made for you if…</h4>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You have S$18,000–S$42,000+ per year to deploy with purpose.</strong> The full welcome bonus potential unlocks at S$42,000 annually — this plan was built for investors who can commit at that level and want their capital working from day one.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You want to be done paying in five years and let the policy run.</strong> A shorter, sharper premium commitment appeals to higher earners who prefer to front-load their obligation and then step back. Five years, then freedom.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You're building wealth with a 10–20 year view</strong> — funding retirement income, creating a legacy, or building a dividend stream. The bonuses in years 8–11 are meaningfully sized at this premium level.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You prefer the supplementary charge to end sooner.</strong> At 7 years vs AWV's 10, higher-premium investors benefit more from the shorter drag window — more of your returns compound unimpeded, sooner.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You want dividend income without waiting.</strong> With GAIF or GDIF, dividends can start flowing from the very next payout date — no initial investment period to clear first.</div></div>
+    </div>
+    <div class="fit-card fit-maybe">
+      <h4 style="color:#7a5c1e;"><span>💡</span> You might want to explore alternatives if…</h4>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>S$18,000 per year is a stretch right now.</strong> This plan's lowest tier (S$18K–S$23,999) carries zero welcome bonus — the plan truly shines at S$42,000+. If your budget is closer to S$7,800–S$12,000, AIA Wealth Venture is designed with your range in mind, with a generous up-to-35% welcome bonus.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You'd prefer a longer, more gradual commitment.</strong> If paying S$18,000+ for five consecutive years feels concentrated, AIA Wealth Venture's 8-year structure spreads the obligation more comfortably — or the lump sum mode spreads the capital impact differently.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You need your capital to remain accessible within the first 7 years.</strong> Surrender charges are meaningful through Year 7. This plan rewards those who truly set it and forget it — if there's a chance you'll need liquidity before then, plan your emergency reserves accordingly first.</div></div>
+      <div class="pc-item"><div class="pc-dot"></div><div><strong>You're looking for guaranteed capital protection.</strong> As an ILP, policy value moves with fund performance. The structure is designed to grow over the long term, but no return is guaranteed and market fluctuations are part of the journey.</div></div>
+    </div>
+  </div>
+  <div class="fit-summary">
+    <p style="font-size:14px;color:var(--mid);line-height:1.75;"><strong style="color:var(--navy)">The bottom line:</strong> PWV 2.0 is the high-conviction plan for affluent investors who want a clean five-year obligation, a faster end to supplementary charges, and a higher performance bonus rate from year eight. At S$42,000+, the welcome bonus adds meaningful momentum. At S$18,000–S$24,000, the plan still works — but AIA Wealth Venture may offer better value per dollar committed. The right choice depends entirely on what you can deploy comfortably and consistently.</p>
+  </div>
+</div>
+
+<hr class="divider">
+<footer>
+  <strong>Disclaimer:</strong> This product summary is for informational and illustrative purposes only and does not constitute financial advice. All projections are based on assumed rates and are not guaranteed. Dividend rates and fund performance will fluctuate. Past performance is not indicative of future results. AIA Platinum Wealth Venture 2.0 is underwritten by AIA Singapore Private Limited (Reg. No. 201106386R). Please refer to the official Product Summary (Version 1.0, April 2025) and consult a licensed AIA Financial Services Consultant. Protected up to specified limits by SDIC.
+</footer>
+
+<script>
+// ═══ DATA ═══
+const TIERS=[
+  {id:'t1',min:18000,max:24000,pct:0,py:[0,0,0]},
+  {id:'t2',min:24000,max:42000,pct:.03,py:[3,0,0]},
+  {id:'t3',min:42000,max:Infinity,pct:.12,py:[3,4,5]},
+];
+// Full surrender charges per policy year
+const SC={1:60,2:60,3:50,4:40,5:30,6:20,7:10,8:0,9:0,10:0};
+const SUPP_YEARS=7; // PWV 2.0: only 7 years vs AWV's 10
+const SUPP_RATE=0.036;
+const INV_BONUS_RATE=0.025; // yrs 8-11
+const PERF_BONUS_RATE=0.004; // 0.40% from yr 8+ (higher than AWV's 0.30%)
+const PREM_TERM=5;
+const TOP_UP_CHARGE=0.03;
+let tuOn=false;
+
+function getTier(p){return TIERS.find(t=>p>=t.min&&p<t.max)||TIERS[2];}
+function fmt(n){return'S$'+Math.round(n).toLocaleString('en-SG');}
+function fmtA(n){return'S$'+Math.abs(Math.round(n)).toLocaleString('en-SG');}
+
+// ═══ PREMIUM MODE ═══
+function setPremMode(mode){
+  const isLump=mode==='lump';
+  document.getElementById('btnAnnual').classList.toggle('active',!isLump);
+  document.getElementById('btnLump').classList.toggle('active',isLump);
+  if(isLump&&!tuOn)toggleTU(); else if(!isLump&&tuOn)toggleTU();
+}
+
+// ═══ WELCOME BONUS ═══
+const pSlider=document.getElementById('premSlider');
+function renderWBBars(tier){
+  const el=document.getElementById('wbBars'); el.innerHTML='';
+  const labels=['Yr 1','Yr 2','Yr 3'];
+  tier.py.forEach((pct,i)=>{
+    const a=pct>0;
+    const c=document.createElement('div');
+    c.className='bar-col'+(a?'':' inactive');
+    const h=a?Math.round((pct/5)*96):8;
+    c.innerHTML=`<div class="bpct">${a?pct+'%':'—'}</div><div class="bar" style="height:${h}px"></div><div class="byr">${labels[i]}</div>`;
+    el.appendChild(c);
+  });
+}
+function updateWB(){
+  const p=parseInt(pSlider.value),tier=getTier(p),bonus=Math.round(p*tier.pct);
+  document.getElementById('premDisplay').textContent=fmt(p);
+  document.getElementById('bonusDisplay').textContent=fmt(bonus);
+  document.getElementById('totalPrem').textContent=fmt(p*PREM_TERM);
+  ['t1','t2','t3'].forEach((id,i)=>document.getElementById(id).classList.toggle('active',TIERS[i].id===tier.id));
+  renderWBBars(tier);
+}
+pSlider.addEventListener('input',updateWB); updateWB();
+
+// ═══ SURRENDER ═══
+const sSlider=document.getElementById('surSlider');
+function updateSur(){
+  const yr=parseInt(sSlider.value),chg=SC[yr]??0,you=100-chg,amt=Math.round(100000*you/100);
+  document.getElementById('surYrDisp').innerHTML=`Year ${yr} <small>of 10</small>`;
+  document.getElementById('surYouBar').style.width=you+'%';
+  document.getElementById('surYouBar').textContent=you>15?`You get ${you}%`:'';
+  document.getElementById('surChgBar').style.width=chg+'%';
+  document.getElementById('surChgBar').textContent=chg>10?`Charge ${chg}%`:'';
+  document.getElementById('surYouAmt').textContent=fmt(amt);
+  document.getElementById('surChgPct').textContent=chg+'%';
+}
+sSlider.addEventListener('input',updateSur); updateSur();
+
+// ═══ TIMELINE ═══
+(function(){
+  const track=document.getElementById('tlTrack');
+  for(let yr=1;yr<=11;yr++){
+    let cls='pp',badge='',bc='';
+    if(yr<=3){cls='pw';badge='Welcome';bc='wb';}
+    if(yr>=8){cls='pi';badge='+2.5%';bc='inv';}
+    const sub=yr<=5?'<span style="font-size:9px;color:var(--light)">premium</span>':yr<=7?'':'<span class="tag-p">+0.40%</span>';
+    const n=document.createElement('div');
+    n.className='yr-node';
+    n.innerHTML=`<div class="yr-badge ${bc}">${badge}</div><div class="yr-circ ${cls}">${yr}</div><div class="yr-sub">${sub}</div>`;
+    track.appendChild(n);
+  }
+})();
+
+// ═══ LUMP SUM TOGGLE ═══
+function toggleTU(){
+  tuOn=!tuOn;
+  document.getElementById('tuBtn').classList.toggle('on-gold',tuOn);
+  document.getElementById('tuRow').classList.toggle('on',tuOn);
+  document.getElementById('btnAnnual').classList.toggle('active',!tuOn);
+  document.getElementById('btnLump').classList.toggle('active',tuOn);
+  if(tuOn){
+    document.getElementById('statPremNum').innerHTML='1 <span style="font-family:\'DM Sans\',sans-serif;font-size:20px;color:var(--light)">lump sum</span>';
+    document.getElementById('statPremSub').textContent='Pay 5× premium upfront; self-funds yrs 2–5';
+    document.getElementById('statPremCard').style.borderColor='var(--gold)';
+  } else {
+    document.getElementById('statPremNum').innerHTML='5 <span style="font-family:\'DM Sans\',sans-serif;font-size:20px;color:var(--light)">years</span>';
+    document.getElementById('statPremSub').textContent='Pay once a year, for 5 years';
+    document.getElementById('statPremCard').style.borderColor='';
+  }
+  runDiv();
+}
+
+// ═══ DIVIDEND PROJECTOR ═══
+const dpSlider=document.getElementById('dpSlider');
+const drSlider=document.getElementById('drSlider');
+const cgSlider=document.getElementById('cgSlider');
+const riSlider=document.getElementById('riSlider');
+
+function runDiv(){
+  const AP=parseInt(dpSlider.value);
+  const divRate=parseFloat(drSlider.value)/100;
+  const cgRate=parseFloat(cgSlider.value)/100;
+  const riYrs=parseInt(riSlider.value);
+  const tier=getTier(AP);
+  // Lump sum: 4x AP top-up in yr1 (yr1 premium paid separately), net of 3%
+  const tuGross=tuOn?AP*4:0;
+  const tuNet=tuGross*(1-TOP_UP_CHARGE);
+
+  document.getElementById('dpDisplay').textContent=fmt(AP);
+  document.getElementById('drDisplay').textContent=parseFloat(drSlider.value).toFixed(1)+'%';
+  document.getElementById('cgDisplay').textContent=parseFloat(cgSlider.value).toFixed(1)+'%';
+  document.getElementById('riDisplay').innerHTML=riYrs===0
+    ?'0 years <span style="font-size:13px;color:var(--light)">(withdraw from Yr 1)</span>'
+    :`${riYrs} year${riYrs>1?'s':''} <span style="font-size:13px;color:var(--light)">(withdraw from Yr ${riYrs+1})</span>`;
+  document.getElementById('tuBadge').textContent=tuOn?'+'+fmt(tuGross):'+S$0';
+
+  const banner=document.getElementById('reinvestBanner');
+  if(riYrs>0){banner.classList.add('show');document.getElementById('riYrsText').textContent=riYrs;document.getElementById('riStartText').textContent=riYrs+1;}
+  else banner.classList.remove('show');
+
+  let rpPV=0,tuPV=0,riPV=0,cDiv=0;
+  const rows=[];
+
+  for(let yr=1;yr<=50;yr++){
+    let prem=0,tu_inj=0,tu_self=0,wb=0,ib=0,pb=0,sc=0;
+
+    if(tuOn&&yr===1){tu_inj=tuNet;tuPV+=tuNet;}
+
+    if(yr<=PREM_TERM){
+      if(!tuOn){prem=AP;rpPV+=AP;}
+      else{
+        if(yr===1){prem=AP;rpPV+=AP;}
+        else{tu_self=AP;tuPV=Math.max(0,tuPV-tu_self);rpPV+=tu_self;prem=0;}
+      }
+    }
+
+    // Welcome bonus years 1-3 (only tiers 2&3 — tier1 gets 0)
+    if(yr>=1&&yr<=3&&yr<=PREM_TERM){
+      wb=AP*(tier.py[yr-1]/100);
+      rpPV+=wb;
+    }
+
+    // Supplementary charge: first 7 years for PWV2.0
+    if(yr<=SUPP_YEARS){sc=rpPV*SUPP_RATE;rpPV=Math.max(0,rpPV-sc);}
+
+    // Investment bonus: years 8-11, 2.5% of AP
+    if(yr>=8&&yr<=11){ib=AP*INV_BONUS_RATE;rpPV+=ib;}
+
+    // Performance bonus: year 8+, 0.40% of RP PV
+    if(yr>=8){pb=rpPV*PERF_BONUS_RATE;rpPV+=pb;}
+
+    // Capital gains on RP, TU, and riPV
+    if(cgRate>0){
+      rpPV*=(1+cgRate);tuPV*=(1+cgRate);
+      if(riYrs>0&&yr<=riYrs)riPV*=(1+cgRate);
+    }
+
+    const totalPV=rpPV+tuPV+(yr<=riYrs?riPV:0);
+    const grossDiv=totalPV*divRate;
+    let cashDiv=0,reinvDiv=0;
+    if(riYrs>0&&yr<=riYrs){reinvDiv=grossDiv;riPV+=reinvDiv;}
+    else{
+      if(riYrs>0&&yr===riYrs+1&&riPV>0){tuPV+=riPV;riPV=0;}
+      cashDiv=grossDiv;cDiv+=cashDiv;
+    }
+
+    let rowClass=yr<=3?'rw':yr<=5?'rp':yr<=11?'ri':'rg';
+    const isReinvesting=(riYrs>0&&yr<=riYrs);
+    rows.push({yr,prem,tu_inj,tu_self,wb,ib,pb,sc,rpPV,tuPV,riPV,
+      totalPV:rpPV+tuPV+(isReinvesting?riPV:0),grossDiv,cashDiv,reinvDiv,cDiv,rowClass,isReinvesting});
+  }
+
+  // Summary
+  const firstCash=rows.find(r=>r.cashDiv>0);
+  document.getElementById('sv8').textContent=fmt(rows[7].totalPV);
+  document.getElementById('sd1').textContent=firstCash?fmt(firstCash.cashDiv):'—';
+  document.getElementById('sd15').textContent=fmt(rows[14].cashDiv);
+  document.getElementById('sdtot').textContent=fmt(rows[49].cDiv);
+
+  // Table header (hide supp charge col via CSS nth-child(6))
+  document.getElementById('divThead').innerHTML=`<tr>
+    <th style="text-align:center">Yr</th>
+    <th>Prem / TU</th>
+    <th>Welcome Bonus</th>
+    <th>Invest Bonus</th>
+    <th>Perf Bonus</th>
+    <th>Supp Charge</th>
+    <th>Capital Gain</th>
+    <th>RP PV</th>
+    <th>TU PV</th>
+    <th>Total PV</th>
+    ${riYrs>0?'<th style="background:#3d2160">Reinvest Div</th>':''}
+    <th>Cash Dividend</th>
+    <th>Cumul. Dividend</th>
+  </tr>`;
+
+  // CG amounts second pass
+  const cgAmounts=rows.map(r=>{
+    const rpB=cgRate>0?r.rpPV/(1+cgRate):r.rpPV;
+    const tuB=cgRate>0?r.tuPV/(1+cgRate):r.tuPV;
+    const riB=(r.isReinvesting&&cgRate>0)?r.riPV/(1+cgRate):r.riPV;
+    return cgRate>0?(r.rpPV-rpB)+(r.tuPV-tuB)+(r.isReinvesting?(r.riPV-riB):0):0;
+  });
+
+  const tbody=document.getElementById('dtbody');
+  tbody.innerHTML='';
+  rows.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.className=r.rowClass+(r.isReinvesting?' reinvesting':'');
+    let premCell;
+    if(tuOn&&r.yr===1)premCell=`<span style="color:var(--teal);font-weight:600">${fmtA(r.tu_inj)}</span><br><span style="font-size:10px;color:var(--light)">(lump sum)</span>`;
+    else if(tuOn&&r.yr>=2&&r.yr<=5)premCell=`<span style="color:var(--mid);font-size:11px">self-funded</span>`;
+    else if(r.prem>0)premCell=fmtA(r.prem);
+    else premCell='—';
+    const cg=cgAmounts[i];
+    tr.innerHTML=`
+      <td>${r.yr}</td>
+      <td>${premCell}</td>
+      <td>${r.wb>0?`<span style="color:var(--gold)">+${fmtA(r.wb)}</span>`:'—'}</td>
+      <td>${r.ib>0?`<span style="color:var(--teal)">+${fmtA(r.ib)}</span>`:'—'}</td>
+      <td>${r.pb>0?`<span style="color:var(--teal)">+${fmtA(r.pb)}</span>`:'—'}</td>
+      <td>${r.sc>0?`<span style="color:var(--gold);opacity:.7">−${fmtA(r.sc)}</span>`:'—'}</td>
+      <td>${cg>0?`<span style="color:var(--purple)">+${fmtA(cg)}</span>`:'—'}</td>
+      <td class="bold">${fmtA(r.rpPV)}</td>
+      <td>${r.tuPV>0?fmtA(r.tuPV):'—'}</td>
+      <td class="bold">${fmtA(r.totalPV)}</td>
+      ${riYrs>0?`<td class="${r.isReinvesting?'purple':'dimmed'}">${r.isReinvesting?'+'+fmtA(r.reinvDiv):'—'}</td>`:''}
+      <td class="${r.cashDiv>0?'teal':'dimmed'}">${r.cashDiv>0?fmtA(r.cashDiv):(r.isReinvesting?'reinvesting':'—')}</td>
+      <td class="${r.cDiv>0?'gold2':''}">${r.cDiv>0?fmtA(r.cDiv):'—'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+dpSlider.addEventListener('input',runDiv);
+drSlider.addEventListener('input',runDiv);
+cgSlider.addEventListener('input',runDiv);
+riSlider.addEventListener('input',runDiv);
+runDiv();
+
+// ═══ HIDE SUPP CHARGE COL ═══
+const style=document.createElement('style');
+style.textContent='table.dtbl thead th:nth-child(6),table.dtbl tbody td:nth-child(6){display:none;}';
+document.head.appendChild(style);
+
+// ═══ FULLSCREEN TABLE ═══
+function toggleTableFS(){
+  const wrap=document.getElementById('divTblWrap');
+  const btn=document.getElementById('fsBtnLabel');
+  const isFS=wrap.classList.toggle('fullscreen');
+  btn.textContent=isFS?'Exit Full Screen':'⛶ Full Screen Table';
+  document.body.style.overflow=isFS?'hidden':'';
+  if(isFS)wrap.scrollTop=0;
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&document.getElementById('divTblWrap').classList.contains('fullscreen'))toggleTableFS();
+});
+
+// ═══ NAV AUTO-HIDE ON PHONE ═══
+(function(){
+  let lastY=0,navEl=document.getElementById('mainNav');
+  window.addEventListener('scroll',()=>{
+    const y=window.scrollY;
+    if(window.innerWidth<=640){
+      navEl.style.transform=y>lastY&&y>60?'translateY(-100%)':'translateY(0)';
+    } else navEl.style.transform='';
+    lastY=y;
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
